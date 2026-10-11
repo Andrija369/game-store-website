@@ -1,0 +1,498 @@
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ocean: #0a1628;
+      --deep: #060e1c;
+      --plank: #2a1a0a;
+      --wood: #5c3a1e;
+      --light-wood: #8b5e3c;
+      --gold: #d4a017;
+      --gold-light: #f0c040;
+      --gold-dim: #7a5a0a;
+      --parchment: #f5e6c8;
+      --parchment-dark: #d4b896;
+      --rum: #c0392b;
+      --rum-light: #e74c3c;
+    }
+
+    
+
+    html{ scroll-behavior:smooth; }
+
+  
+    body {
+      font-family: 'Crimson Text', Georgia, serif;
+      background-color: var(--ocean);
+      color: var(--parchment);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── Animated ocean background ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(10,30,70,0.6) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(5,15,40,0.8) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── Floating particles (stars/foam) ── */
+    .particles {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      background: var(--gold-light);
+      opacity: 0;
+      animation: drift linear infinite;
+    }
+
+    @keyframes drift {
+      0%   { opacity: 0; transform: translateY(0) scale(0.5); }
+      10%  { opacity: 0.6; }
+      90%  { opacity: 0.3; }
+      100% { opacity: 0; transform: translateY(-80px) scale(1); }
+    }
+
+    /* ── Nav ── */
+        nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(6,14,28,0.95);
+      border-bottom: 1px solid rgba(212,160,23,0.3);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      backdrop-filter: blur(8px);
+    }
+
+    .nav-logo {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 1.3rem;
+      color: var(--gold-light);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-logo .skull { font-size: 1.5rem; }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-family: 'Cinzel', serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--parchment-dark);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--gold-light); }
+
+    .nav-cart {
+      background: transparent;
+      border: 1px solid rgba(212,160,23,0.5);
+      color: var(--gold-light);
+      padding: 8px 18px;
+      border-radius: 4px;
+      font-family: 'Cinzel', serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .nav-cart:hover {
+      background: rgba(212,160,23,0.1);
+      border-color: var(--gold-light);
+    }
+    .cart-badge {
+      background: var(--rum);
+      color: #fff;
+      font-size: 0.65rem;
+      border-radius: 50%;
+      width: 18px; height: 18px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Crimson Text', serif;
+    }
+
+    /* ── Page header ── */
+    .page-hero {
+      position: relative; z-index: 1;
+      padding: 5rem 2rem 3rem;
+      text-align: center;
+      overflow: hidden;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 6px;
+      background: repeating-linear-gradient(90deg, var(--wood) 0px, var(--wood) 18px, var(--light-wood) 18px, var(--light-wood) 22px);
+      opacity: 0.7;
+    }
+    .page-hero-label {
+      font-family: 'Cinzel', serif; font-size: 0.75rem;
+      letter-spacing: 0.35em; text-transform: uppercase;
+      color: var(--gold-dim); margin-bottom: 1rem; display: block;
+    }
+    .page-hero h1 {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      color: var(--gold-light); line-height: 1.2;
+      text-shadow: 0 0 40px rgba(212,160,23,0.25);
+      margin-bottom: 1rem;
+    }
+    .page-hero p {
+      font-style: italic; font-size: 1.2rem;
+      color: var(--parchment-dark); opacity: 0.75;
+      max-width: 520px; margin: 0 auto;
+    }
+    .hero-divider {
+      margin: 3rem auto 0; display: flex; align-items: center;
+      gap: 1rem; max-width: 300px; opacity: 0.35;
+    }
+    .hero-divider hr { flex: 1; border: none; border-top: 1px solid var(--gold); }
+
+    /* ── Spotlight (hero featured game) ── */
+    .spotlight {
+      position: relative; z-index: 1;
+      max-width: 1200px; margin: 3rem auto 0;
+      padding: 0 2rem;
+    }
+    .spotlight-inner {
+      position: relative; border-radius: 8px; overflow: hidden;
+      border: 1px solid rgba(212,160,23,0.3);
+      min-height: 420px;
+      display: flex; align-items: flex-end;
+    }
+    .spotlight-bg {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, #0a0f1a 0%, #1a2a0a 100%);
+    }
+    .spotlight-bg img {
+      width: 100%; height: 100%; object-fit: cover;
+      display: block; opacity: 0.45;
+      filter: saturate(0.8);
+    }
+    .spotlight-grad {
+      position: absolute; inset: 0;
+      background: linear-gradient(to right, rgba(6,14,28,0.97) 38%, rgba(6,14,28,0.3) 100%),
+                  linear-gradient(to top, rgba(6,14,28,0.8) 0%, transparent 50%);
+    }
+    .spotlight-content {
+      position: relative; z-index: 1;
+      padding: 3rem;
+      max-width: 520px;
+    }
+    .spotlight-tag {
+      display: inline-block;
+      font-family: 'Cinzel', serif; font-size: 0.65rem;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      background: var(--gold); color: var(--deep);
+      padding: 4px 14px; border-radius: 2px;
+      margin-bottom: 1.2rem; font-weight: 700;
+    }
+    .spotlight-title {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: clamp(1.6rem, 3.5vw, 2.5rem);
+      color: var(--gold-light); line-height: 1.2;
+      margin-bottom: 0.8rem;
+    }
+    .spotlight-genre {
+      font-family: 'Cinzel', serif; font-size: 0.72rem;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--gold-dim); margin-bottom: 1rem;
+    }
+    .spotlight-desc {
+      font-style: italic; font-size: 1.1rem;
+      color: var(--parchment-dark); opacity: 0.8;
+      line-height: 1.7; margin-bottom: 1.8rem;
+      max-width: 420px;
+    }
+    .spotlight-meta {
+      display: flex; gap: 2rem; margin-bottom: 2rem; flex-wrap: wrap;
+    }
+    .meta-item { display: flex; flex-direction: column; gap: 3px; }
+    .meta-label {
+      font-family: 'Cinzel', serif; font-size: 0.6rem;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--gold-dim);
+    }
+    .meta-value {
+      font-family: 'Cinzel', serif; font-size: 0.85rem;
+      color: var(--parchment);
+    }
+    .spotlight-actions { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--gold); color: var(--deep);
+      font-family: 'Cinzel', serif; font-size: 0.8rem;
+      letter-spacing: 0.15em; text-transform: uppercase; font-weight: 700;
+      padding: 13px 28px; border: none; border-radius: 3px;
+      cursor: pointer; transition: all 0.2s; text-decoration: none;
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+    .btn-secondary {
+      background: transparent; color: var(--parchment-dark);
+      font-family: 'Cinzel', serif; font-size: 0.8rem;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 12px 24px; border: 1px solid rgba(212,160,23,0.3);
+      border-radius: 3px; cursor: pointer; transition: all 0.2s;
+      text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-secondary:hover { border-color: rgba(212,160,23,0.6); color: var(--gold-light); }
+    .spotlight-price {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 1.6rem; color: var(--gold-light);
+      display: flex; align-items: baseline; gap: 0.6rem;
+    }
+    .spotlight-price-old {
+      font-family: 'Crimson Text', serif; font-size: 1rem;
+      color: var(--parchment-dark); opacity: 0.45;
+      text-decoration: line-through;
+    }
+
+    /* ── Section ── */
+    .section { position: relative; z-index: 1; padding: 4rem 2rem; max-width: 1200px; margin: 0 auto; }
+    .section-header { margin-bottom: 2.5rem; display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+    
+    .section-label {
+      font-family: 'Cinzel', serif; font-size: 0.7rem;
+      letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--gold-dim); display: block; margin-bottom: 0.5rem;
+    }
+    .section-title {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: clamp(1.3rem, 2.5vw, 1.8rem); color: var(--gold-light);
+    }
+    .section-link {
+      font-family: 'Cinzel', serif; font-size: 0.7rem;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--gold-dim); text-decoration: none;
+      border-bottom: 1px solid rgba(212,160,23,0.3);
+      padding-bottom: 2px; transition: color 0.2s, border-color 0.2s;
+      white-space: nowrap;
+    }
+    .section-link:hover { color: var(--gold-light); border-color: var(--gold-light); }
+
+    /* ── Deal of the Day ── */
+    .deals-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.2rem;
+    }
+    .deal-card {
+      background: rgba(20,12,5,0.8);
+      border: 1px solid rgba(212,160,23,0.18);
+      border-radius: 6px; overflow: hidden;
+      display: flex; gap: 0; transition: all 0.25s;
+      flex-direction: column;
+    }
+    .deal-card:hover { border-color: rgba(212,160,23,0.5); transform: translateY(-3px); }
+    .deal-img {
+      width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block;
+      background: var(--plank);
+    }
+    .deal-body { padding: 1rem 1.1rem 1.2rem; display: flex; flex-direction: column; gap: 0.4rem; flex: 1; }
+    .deal-platform {
+      font-family: 'Cinzel', serif; font-size: 0.6rem;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold-dim);
+    }
+    .deal-title { font-family: 'Cinzel', serif; font-size: 0.95rem; color: var(--parchment); line-height: 1.3; }
+    .deal-genre { font-style: italic; font-size: 0.88rem; color: var(--parchment-dark); opacity: 0.65; }
+    .deal-footer { display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: 0.8rem; }
+    .deal-prices { display: flex; flex-direction: column; gap: 1px; }
+    .deal-discount {
+      font-family: 'Cinzel', serif; font-size: 0.65rem;
+      background: var(--rum); color: #fff;
+      padding: 2px 7px; border-radius: 2px; display: inline-block;
+      margin-bottom: 3px; letter-spacing: 0.05em;
+    }
+    .deal-price-row { display: flex; align-items: baseline; gap: 0.5rem; }
+    .price-now { font-family: 'Cinzel', serif; font-size: 1.05rem; color: var(--gold-light); }
+    .price-was { font-size: 0.82rem; color: var(--parchment-dark); opacity: 0.45; text-decoration: line-through; }
+    .btn-deal {
+      font-family: 'Cinzel', serif; font-size: 0.65rem;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 7px 14px; border: 1px solid rgba(212,160,23,0.4);
+      background: transparent; color: var(--gold-light);
+      border-radius: 3px; cursor: pointer; transition: all 0.2s; white-space: nowrap;
+    }
+    .btn-deal:hover { background: rgba(212,160,23,0.12); }
+
+    /* ── Countdown timer ── */
+    .countdown-bar {
+      position: relative; z-index: 1;
+      background: rgba(42,26,10,0.6);
+      border-top: 1px solid rgba(212,160,23,0.15);
+      border-bottom: 1px solid rgba(212,160,23,0.15);
+      padding: 1.2rem 2rem;
+      text-align: center;
+    }
+    .countdown-inner {
+      display: flex; align-items: center; justify-content: center;
+      gap: 2rem; flex-wrap: wrap;
+    }
+    .countdown-label {
+      font-family: 'Cinzel', serif; font-size: 0.75rem;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--parchment-dark); opacity: 0.7;
+    }
+    .countdown-timer { display: flex; align-items: center; gap: 0.5rem; }
+    .time-block {
+      display: flex; flex-direction: column; align-items: center;
+      background: rgba(10,22,40,0.8); border: 1px solid rgba(212,160,23,0.25);
+      border-radius: 4px; padding: 8px 14px; min-width: 56px;
+    }
+    .time-num {
+      font-family: 'Cinzel Decorative', serif; font-size: 1.4rem;
+      color: var(--gold-light); line-height: 1;
+    }
+    .time-unit {
+      font-family: 'Cinzel', serif; font-size: 0.55rem;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--gold-dim); margin-top: 3px;
+    }
+    .time-sep { font-family: 'Cinzel Decorative', serif; font-size: 1.2rem; color: var(--gold-dim); }
+
+    
+    
+
+    /* ── Top rated row ── */
+    .toprated-list { display: flex; flex-direction: column; gap: 0; }
+    .toprated-item {
+      display: flex; align-items: center; gap: 1.2rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid rgba(212,160,23,0.1);
+      
+      border-radius: 4px;
+      padding-left: 0.5rem;
+    }
+    .toprated-item:hover { background: rgba(212,160,23,0.04); }
+    .toprated-rank {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 1.2rem; color: var(--gold-dim);
+      min-width: 32px; text-align: center;
+    }
+    .toprated-img {
+      width: 72px; height: 44px; object-fit: cover;
+      border-radius: 3px; background: var(--plank); flex-shrink: 0;
+    }
+    .toprated-info { flex: 1; }
+    .toprated-title {
+      font-family: 'Cinzel', serif; font-size: 0.88rem;
+      color: var(--parchment); margin-bottom: 3px;
+    }
+    .toprated-genre {
+      font-style: italic; font-size: 0.82rem;
+      color: var(--parchment-dark); opacity: 0.55;
+    }
+    .toprated-stars { color: var(--gold); font-size: 0.7rem; letter-spacing: 2px; }
+    .toprated-price {
+      font-family: 'Cinzel', serif; font-size: 0.95rem;
+      color: var(--gold-light); white-space: nowrap;
+    }
+
+    /* ── Divider ── */
+    .section-divider {
+      position: relative; z-index: 1;
+      border: none; border-top: 1px solid rgba(212,160,23,0.12); margin: 0 2rem;
+    }
+
+    /* ── Newsletter ── */
+    .newsletter {
+      position: relative; z-index: 1;
+      background: rgba(42,26,10,0.4);
+      border-top: 1px solid rgba(212,160,23,0.15);
+      border-bottom: 1px solid rgba(212,160,23,0.15);
+      padding: 3.5rem 2rem;
+      text-align: center;
+    }
+    .newsletter h2 {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: clamp(1.3rem, 3vw, 2rem); color: var(--gold-light);
+      margin-bottom: 0.6rem;
+    }
+    .newsletter p {
+      font-style: italic; font-size: 1.05rem;
+      color: var(--parchment-dark); opacity: 0.65;
+      margin-bottom: 1.8rem;
+    }
+    .newsletter-form {
+      display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;
+      max-width: 480px; margin: 0 auto;
+    }
+    .newsletter-input {
+      flex: 1; min-width: 220px;
+      padding: 12px 18px;
+      background: rgba(10,22,40,0.8);
+      border: 1px solid rgba(212,160,23,0.3);
+      border-radius: 4px; color: var(--parchment);
+      font-family: 'Crimson Text', serif; font-size: 1rem;
+      outline: none; transition: border-color 0.2s;
+    }
+    .newsletter-input::placeholder { color: var(--parchment-dark); opacity: 0.4; }
+    .newsletter-input:focus { border-color: rgba(212,160,23,0.6); }
+
+    /* ── Footer ── */
+    footer {
+      position: relative; z-index: 1;
+      background: var(--deep);
+      border-top: 1px solid rgba(212,160,23,0.2);
+      padding: 3rem 2rem 2rem; text-align: center;
+    }
+    .footer-logo { font-family: 'Cinzel Decorative', serif; font-size: 1.5rem; color: var(--gold-light); margin-bottom: 0.5rem; }
+    .footer-tagline { font-style: italic; font-size: 0.95rem; color: var(--parchment-dark); opacity: 0.5; margin-bottom: 1.5rem; }
+    .footer-links { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; list-style: none; margin-bottom: 2rem; }
+    .footer-links a {
+      font-family: 'Cinzel', serif; font-size: 0.7rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--parchment-dark); opacity: 0.5;
+      text-decoration: none; transition: opacity 0.2s;
+    }
+    .footer-links a:hover { opacity: 1; }
+    .footer-copy { font-size: 0.8rem; color: var(--parchment-dark); opacity: 0.3; }
+
+    /* ── Toast ── */
+    .toast {
+      position: fixed; bottom: 2rem; left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: rgba(42,26,10,0.97);
+      border: 1px solid rgba(212,160,23,0.4);
+      color: var(--parchment); font-family: 'Cinzel', serif;
+      font-size: 0.8rem; letter-spacing: 0.1em;
+      padding: 12px 24px; border-radius: 4px; z-index: 300;
+      transition: transform 0.3s ease, opacity 0.3s;
+      opacity: 0; pointer-events: none;
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+    @media (max-width: 700px) {
+      nav { padding: 0 1rem; }
+      .nav-links { display: none; }
+      .spotlight-content { padding: 2rem 1.5rem; }
+      .section { padding: 3rem 1.5rem; }
+      .spotlight { padding: 0 1rem; }
+    }
+  

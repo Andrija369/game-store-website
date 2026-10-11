@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+  <link rel="icon" type="image/png" href="favicon/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="favicon/favicon.svg" />
+<link rel="shortcut icon" href="favicon/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png" />
+<link rel="manifest" href="favicon/site.webmanifest" />
+  <title>Davy's Game Chest — Pirate Game Store</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  
+</head>
+<body>
+ 
+
+<div class="particles" id="particles"></div>
+ 
+
+<nav>
+  <a class="nav-logo" href="#">
+    <span class="skull">☠</span> Davy's Game Chest
+  </a>
+  <ul class="nav-links">
+    <li><a href="#store">Plunder</a></li>
+    <li><a href="featured.html">Featured</a></li>
+    <li><a href="about.html">The Legend</a></li>
+  </ul>
+  <button class="nav-cart" onclick="openCart()">
+    ⚓ Cart
+    <span class="cart-badge" id="cart-count">0</span>
+  </button>
+</nav>
+ 
+
+<section class="hero">
+  <div class="hero-rope"></div>
+  <p class="hero-subtitle">⚓ &nbsp; Est. Upon the Seven Seas &nbsp; ⚓</p>
+  <h1>Davy's<br>Game Chest</h1>
+  <p class="hero-tagline">Where every great adventure awaits — if ye dare claim it.</p>
+  <a href="#store" class="hero-cta">⚔ &nbsp; Browse the Treasure</a>
+  <div class="hero-divider">
+    <hr /><span>☠</span><hr />
+  </div>
+</section>
+ 
+
+<div class="features-bar">
+  <div class="features-inner">
+    <div class="feature-item">
+      <div class="feature-icon">⚡</div>
+      <div class="feature-title">Instant Delivery</div>
+      <div class="feature-desc">Keys sent faster than a cannonball</div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">🔒</div>
+      <div class="feature-title">Safe Waters</div>
+      <div class="feature-desc">Encrypted & secure, matey</div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">💰</div>
+      <div class="feature-title">Best Booty</div>
+      <div class="feature-desc">Unbeatable prices on the seas</div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">🗺</div>
+      <div class="feature-title">All Platforms</div>
+      <div class="feature-desc">PC, PlayStation & Xbox keys</div>
+    </div>
+  </div>
+</div>
+ 
+
+<section class="section" id="store">
+  <div class="section-header">
+    <span class="section-label">⚓ The Chest is Open</span>
+    <h2 class="section-title">Plunder the Collection</h2>
+  </div>
+ 
+  
+  <div class="search-wrap">
+    <input class="search-input" type="text" id="search-input" placeholder="Search for treasure..." oninput="filterGames()" />
+    <span class="search-icon">🔍</span>
+  </div>
+   
+  
+  <div class="genre-filter">
+    <button class="genre-btn active" onclick="setGenre('All', this)">All</button>
+    <button class="genre-btn" onclick="setGenre('Action', this)">Action</button>
+    <button class="genre-btn" onclick="setGenre('RPG', this)">RPG</button>
+    <button class="genre-btn" onclick="setGenre('Adventure', this)">Adventure</button>
+    <button class="genre-btn" onclick="setGenre('Strategy', this)">Strategy</button>
+    <button class="genre-btn" onclick="setGenre('Horror', this)">Horror</button>
+  </div>
+ 
+  
+  <div class="games-grid" id="games-grid"></div>
+</section>
+ 
+<hr class="section-divider" />
+ 
+
+<div class="modal-overlay" id="cart-modal" onclick="closeCartOutside(event)">
+  <div class="cart-panel">
+    <div class="cart-header">
+      <h2>⚓ Thy Chest</h2>
+      <button class="btn-close" onclick="closeCart()">✕</button>
+    </div>
+    <div id="cart-items"></div>
+    <div id="cart-footer" style="display:none">
+      <div class="cart-total">
+        <span class="cart-total-label">Total Plunder</span>
+        <span class="cart-total-price" id="cart-total">$0.00</span>
+      </div>
+      <button class="btn-checkout" onclick="checkout()">⚔ &nbsp; Claim the Loot</button>
+    </div>
+  </div>
+</div>
+ 
+
+<div class="toast" id="toast"></div>
+ 
+
+<footer>
+  <div class="footer-logo">Davy's Game Chest</div>
+  <p class="footer-tagline">"Fifteen games on a dead man's drive..."</p>
+  <ul class="footer-links">
+    <li><a href="#">About</a></li>
+    <li><a href="#">FAQ</a></li>
+    <li><a href="#">Refund Policy</a></li>
+    <li><a href="#">Contact</a></li>
+    <li><a href="#">Affiliate</a></li>
+  </ul>
+  <p class="footer-copy">© 2025 Davy's Game Chest. All rights reserved across the seven seas.</p>
+</footer>
+ 
+ 
+ 
+</body>
+</html>

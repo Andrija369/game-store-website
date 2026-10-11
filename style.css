@@ -1,0 +1,675 @@
+ *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ocean: #0a1628;
+      --deep: #060e1c;
+      --plank: #2a1a0a;
+      --wood: #5c3a1e;
+      --light-wood: #8b5e3c;
+      --gold: #d4a017;
+      --gold-light: #f0c040;
+      --gold-dim: #7a5a0a;
+      --parchment: #f5e6c8;
+      --parchment-dark: #d4b896;
+      --rum: #c0392b;
+      --rum-light: #e74c3c;
+      --cream: #fdf6e3;
+      --fog: rgba(245, 230, 200, 0.07);
+      --border-gold: 1px solid rgba(212, 160, 23, 0.35);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Crimson Text', Georgia, serif;
+      background-color: var(--ocean);
+      color: var(--parchment);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── Animated ocean background ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(10,30,70,0.6) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(5,15,40,0.8) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── Floating particles (stars/foam) ── */
+    .particles {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      background: var(--gold-light);
+      opacity: 0;
+      animation: drift linear infinite;
+    }
+
+    @keyframes drift {
+      0%   { opacity: 0; transform: translateY(0) scale(0.5); }
+      10%  { opacity: 0.6; }
+      90%  { opacity: 0.3; }
+      100% { opacity: 0; transform: translateY(-80px) scale(1); }
+    }
+
+    /* ── Nav ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(6,14,28,0.95);
+      border-bottom: 1px solid rgba(212,160,23,0.3);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      backdrop-filter: blur(8px);
+    }
+
+    .nav-logo {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 1.3rem;
+      color: var(--gold-light);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-logo .skull { font-size: 1.5rem; }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-family: 'Cinzel', serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--parchment-dark);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--gold-light); }
+
+    .nav-cart {
+      background: transparent;
+      border: 1px solid rgba(212,160,23,0.5);
+      color: var(--gold-light);
+      padding: 8px 18px;
+      border-radius: 4px;
+      font-family: 'Cinzel', serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .nav-cart:hover {
+      background: rgba(212,160,23,0.1);
+      border-color: var(--gold-light);
+    }
+    .cart-badge {
+      background: var(--rum);
+      color: #fff;
+      font-size: 0.65rem;
+      border-radius: 50%;
+      width: 18px; height: 18px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Crimson Text', serif;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      position: relative;
+      z-index: 1;
+      padding: 6rem 2rem 5rem;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero-rope {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 6px;
+      background: repeating-linear-gradient(90deg, var(--wood) 0px, var(--wood) 18px, var(--light-wood) 18px, var(--light-wood) 22px);
+      opacity: 0.7;
+    }
+
+    .hero-subtitle {
+      font-family: 'Cinzel', serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+      margin-bottom: 1.2rem;
+    }
+
+    .hero h1 {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: clamp(2.2rem, 6vw, 4.5rem);
+      color: var(--gold-light);
+      line-height: 1.15;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 0 40px rgba(212,160,23,0.3);
+    }
+
+    .hero-tagline {
+      font-family: 'Cinzel', serif;
+      font-style: italic;
+      font-size: 1.35rem;
+      color: var(--parchment-dark);
+      margin: 1.2rem 0 2.5rem;
+      opacity: 0.85;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--gold);
+      color: var(--deep);
+      font-family: 'Cinzel', serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 14px 36px;
+      border-radius: 3px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-weight: 700;
+    }
+    .hero-cta:hover {
+      background: var(--gold-light);
+      transform: translateY(-2px);
+    }
+
+    .hero-divider {
+      margin: 4rem auto 0;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      max-width: 400px;
+      opacity: 0.4;
+    }
+    .hero-divider hr { flex: 1; border: none; border-top: 1px solid var(--gold); }
+    .hero-divider span { font-size: 1.4rem; }
+
+    /* ── Section headers ── */
+    .section { position: relative; z-index: 1; padding: 4rem 2rem; max-width: 1200px; margin: 0 auto; }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .section-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+      display: block;
+      margin-bottom: 0.6rem;
+    }
+
+    .section-title {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      color: var(--gold-light);
+    }
+
+   
+
+    /* ── Genre filter ── */
+    .genre-filter {
+      display: flex;
+      gap: 0.75rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+    }
+    .genre-btn {
+      font-family: 'Cinzel', serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 7px 18px;
+      border: 1px solid rgba(212,160,23,0.35);
+      background: transparent;
+      color: var(--parchment-dark);
+      border-radius: 3px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .genre-btn:hover, .genre-btn.active {
+      background: rgba(212,160,23,0.12);
+      border-color: var(--gold-light);
+      color: var(--gold-light);
+    }
+
+    /* ── Game cards grid ── */
+    .games-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .game-card {
+      background: rgba(20, 12, 5, 0.8);
+      border: 1px solid rgba(212,160,23,0.2);
+      border-radius: 6px;
+      overflow: hidden;
+      transition: all 0.25s;
+      cursor: pointer;
+      position: relative;
+    }
+    .game-card:hover {
+      border-color: rgba(212,160,23,0.55);
+      transform: translateY(-4px);
+    }
+
+    .game-card-img {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      display: block;
+      background: var(--plank);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Placeholder art for each game using CSS */
+    .game-art {
+      width: 100%;
+      aspect-ratio: 16/9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .game-art-1 { background: linear-gradient(135deg, #0d1b2a 0%, #1a3a5c 50%, #0a2a40 100%); }
+    .game-art-2 { background: linear-gradient(135deg, #1a0a0a 0%, #4a1515 50%, #2a0808 100%); }
+    .game-art-3 { background: linear-gradient(135deg, #0a1a0a 0%, #1a4a1a 50%, #0d2a0d 100%); }
+    .game-art-4 { background: linear-gradient(135deg, #1a1a0a 0%, #4a3a10 50%, #2a2008 100%); }
+    .game-art-5 { background: linear-gradient(135deg, #1a0a1a 0%, #3a1050 50%, #150a25 100%); }
+    .game-art-6 { background: linear-gradient(135deg, #0a1a1a 0%, #0a3a4a 50%, #052030 100%); }
+    .game-art-7 { background: linear-gradient(135deg, #2a0808 0%, #600000 50%, #1a0505 100%); }
+    .game-art-8 { background: linear-gradient(135deg, #08080a 0%, #1a1a30 50%, #0a0a20 100%); }
+
+    .game-badge {
+      position: absolute;
+      top: 10px; left: 10px;
+      font-family: 'Cinzel', serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 2px;
+    }
+    .badge-new { background: var(--rum); color: #fff; }
+    .badge-sale { background: var(--gold); color: var(--deep); }
+    .badge-hot { background: #b05a00; color: #ffe0b2; }
+
+    .game-card-body { padding: 1rem 1.1rem 1.2rem; }
+
+    .game-platform {
+      font-family: 'Cinzel', serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+      margin-bottom: 0.35rem;
+    }
+
+    .game-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1rem;
+      color: var(--parchment);
+      margin-bottom: 0.4rem;
+      line-height: 1.3;
+    }
+
+    .game-genre {
+      font-family: 'Crimson Text', serif;
+      font-style: italic;
+      font-size: 0.9rem;
+      color: var(--parchment-dark);
+      opacity: 0.7;
+      margin-bottom: 0.9rem;
+    }
+
+    .game-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .game-price {
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+    }
+    .price-current {
+      font-family: 'Cinzel', serif;
+      font-size: 1.1rem;
+      color: var(--gold-light);
+      font-weight: 600;
+    }
+    .price-old {
+      font-size: 0.85rem;
+      color: var(--parchment-dark);
+      opacity: 0.5;
+      text-decoration: line-through;
+    }
+
+    .btn-add {
+      font-family: 'Cinzel', serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 7px 14px;
+      border: 1px solid rgba(212,160,23,0.45);
+      background: transparent;
+      color: var(--gold-light);
+      border-radius: 3px;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .btn-add:hover {
+      background: rgba(212,160,23,0.15);
+    }
+    .btn-add.added {
+      background: rgba(192, 57, 43, 0.2);
+      border-color: var(--rum-light);
+      color: var(--rum-light);
+    }
+
+    /* ── Stars ── */
+    .game-stars { color: var(--gold); font-size: 0.75rem; margin-bottom: 0.4rem; letter-spacing: 2px; }
+
+    /* ── Divider ── */
+    .section-divider {
+      position: relative; z-index: 1;
+      border: none;
+      border-top: 1px solid rgba(212,160,23,0.15);
+      margin: 0 2rem;
+    }
+
+    /* ── Features banner ── */
+    .features-bar {
+      position: relative; z-index: 1;
+      background: rgba(42,26,10,0.5);
+      border-top: 1px solid rgba(212,160,23,0.15);
+      border-bottom: 1px solid rgba(212,160,23,0.15);
+      padding: 2rem;
+    }
+    .features-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      text-align: center;
+    }
+    .feature-item { display: flex; flex-direction: column; align-items: center; gap: 0.6rem; }
+    .feature-icon { font-size: 2rem; }
+    .feature-title {
+      font-family: 'Cinzel', serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+    }
+    .feature-desc {
+      font-family: 'Crimson Text', serif;
+      font-style: italic;
+      font-size: 0.95rem;
+      color: var(--parchment-dark);
+      opacity: 0.7;
+    }
+
+    /* ── Cart modal ── */
+    .modal-overlay {
+      display: none;
+      position: fixed; inset: 0; z-index: 200;
+      background: rgba(0,0,0,0.7);
+      align-items: flex-start;
+      justify-content: flex-end;
+    }
+    .modal-overlay.open { display: flex; }
+    .cart-panel {
+      background: #0d1a2e;
+      border-left: 1px solid rgba(212,160,23,0.3);
+      width: min(420px, 95vw);
+      height: 100vh;
+      overflow-y: auto;
+      padding: 2rem;
+      animation: slideIn 0.25s ease;
+    }
+    @keyframes slideIn { from { transform: translateX(40px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+
+    .cart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(212,160,23,0.2);
+    }
+    .cart-header h2 {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 1.2rem;
+      color: var(--gold-light);
+    }
+    .btn-close {
+      background: none; border: none;
+      color: var(--parchment-dark); font-size: 1.5rem;
+      cursor: pointer; line-height: 1;
+      transition: color 0.2s;
+    }
+    .btn-close:hover { color: var(--gold-light); }
+
+    .cart-empty {
+      text-align: center;
+      padding: 3rem 1rem;
+      font-style: italic;
+      color: var(--parchment-dark);
+      opacity: 0.6;
+    }
+
+    .cart-item {
+      display: flex;
+      gap: 1rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid rgba(212,160,23,0.1);
+      align-items: center;
+    }
+    .cart-item-art {
+      width: 56px; height: 56px;
+      border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+    .cart-item-info { flex: 1; }
+    .cart-item-title {
+      font-family: 'Cinzel', serif;
+      font-size: 0.85rem;
+      color: var(--parchment);
+      margin-bottom: 3px;
+    }
+    .cart-item-price { font-size: 0.9rem; color: var(--gold); }
+    .btn-remove {
+      background: none; border: none;
+      color: var(--rum-light); font-size: 1.1rem;
+      cursor: pointer; opacity: 0.6; transition: opacity 0.2s;
+    }
+    .btn-remove:hover { opacity: 1; }
+
+    .cart-total {
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(212,160,23,0.2);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .cart-total-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--parchment-dark);
+    }
+    .cart-total-price {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 1.3rem;
+      color: var(--gold-light);
+    }
+    .btn-checkout {
+      width: 100%;
+      margin-top: 1.5rem;
+      padding: 14px;
+      background: var(--gold);
+      color: var(--deep);
+      font-family: 'Cinzel', serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      font-weight: 700;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-checkout:hover { background: var(--gold-light); }
+
+    /* ── Search ── */
+    .search-wrap {
+      max-width: 500px;
+      margin: 0 auto 2.5rem;
+      position: relative;
+    }
+    .search-input {
+      width: 100%;
+      padding: 12px 48px 12px 18px;
+      background: rgba(10,22,40,0.8);
+      border: 1px solid rgba(212,160,23,0.3);
+      border-radius: 4px;
+      color: var(--parchment);
+      font-family: 'Crimson Text', serif;
+      font-size: 1.05rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .search-input::placeholder { color: var(--parchment-dark); opacity: 0.4; }
+    .search-input:focus { border-color: rgba(212,160,23,0.6); }
+    .search-icon {
+      position: absolute; right: 14px; top: 50%;
+      transform: translateY(-50%);
+      color: var(--gold-dim);
+      font-size: 1.1rem;
+      pointer-events: none;
+    }
+
+    /* ── Footer ── */
+    footer {
+      position: relative; z-index: 1;
+      background: var(--deep);
+      border-top: 1px solid rgba(212,160,23,0.2);
+      padding: 3rem 2rem 2rem;
+      text-align: center;
+    }
+    .footer-logo {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 1.5rem;
+      color: var(--gold-light);
+      margin-bottom: 0.5rem;
+    }
+    .footer-tagline {
+      font-style: italic;
+      font-size: 0.95rem;
+      color: var(--parchment-dark);
+      opacity: 0.5;
+      margin-bottom: 1.5rem;
+    }
+    .footer-links {
+      display: flex; gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      list-style: none;
+      margin-bottom: 2rem;
+    }
+    .footer-links a {
+      font-family: 'Cinzel', serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--parchment-dark);
+      opacity: 0.5;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .footer-links a:hover { opacity: 1; }
+    .footer-copy {
+      font-size: 0.8rem;
+      color: var(--parchment-dark);
+      opacity: 0.3;
+    }
+
+    /* ── Toast ── */
+    .toast {
+      position: fixed;
+      bottom: 2rem; left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: rgba(42,26,10,0.97);
+      border: 1px solid rgba(212,160,23,0.4);
+      color: var(--parchment);
+      font-family: 'Cinzel', serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      padding: 12px 24px;
+      border-radius: 4px;
+      z-index: 300;
+      transition: transform 0.3s ease, opacity 0.3s;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    @media (max-width: 600px) {
+      nav { padding: 0 1rem; }
+      .nav-links { display: none; }
+      .hero { padding: 4rem 1.5rem 3rem; }
+      .section { padding: 3rem 1.5rem; }
+    }

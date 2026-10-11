@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="favicon/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg" />
+  <link rel="shortcut icon" href="favicon/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png" />
+  <link rel="manifest" href="favicon/site.webmanifest" />
+  <title>Featured — Davy's Game Chest</title>
+  <link rel="stylesheet" href="stylefeatured.css">
+  <script src="scriptfeatured.js" defer></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  
+</head>
+<body>
+
+  <div class="particles" id="particles"></div>
+
+<!-- Nav -->
+<nav>
+  <a class="nav-logo" href="index.html">
+    <span>☠</span> Davy's Game Chest
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Plunder</a></li>
+    <li><a href="featured.html" class="active">Featured</a></li>
+    <li><a href="about.html">The Legend</a></li>
+  </ul>
+  <button class="nav-cart" onclick="window.location.href='index.html'">
+    ⚓ Back to Store
+  </button>
+</nav>
+
+<!-- Page Hero -->
+<section class="page-hero">
+  <span class="page-hero-label">⚓ Handpicked by the Captain ⚓</span>
+  <h1>Featured Treasure</h1>
+  <p>The finest plunder from across the gaming seas — deals, staff picks, and legends worth claiming.</p>
+  <div class="hero-divider"><hr /><span>☠</span><hr /></div>
+</section>
+
+<!-- Spotlight -->
+<div class="spotlight">
+  <div class="spotlight-inner">
+    <div class="spotlight-bg">
+      <img src="https://media.rawg.io/media/games/b29/b294fdd866dcdb643e7bab370a552855.jpg" alt="Elden Ring" onerror="this.style.display='none'" />
+    </div>
+    <div class="spotlight-grad"></div>
+    <div class="spotlight-content">
+      <span class="spotlight-tag">⭐ Captain's Pick</span>
+      <h2 class="spotlight-title">Elden Ring</h2>
+      <div class="spotlight-genre">RPG · Action · Open World</div>
+      <p class="spotlight-desc">
+        Venture into the Lands Between — a vast, dark world forged by George R.R. Martin and FromSoftware. Wield the power of the Elden Ring, if ye dare face its trials.
+      </p>
+      <div class="spotlight-meta">
+        <div class="meta-item">
+          <span class="meta-label">Platform</span>
+          <span class="meta-value">PC / PS5 / Xbox</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Rating</span>
+          <span class="meta-value">★★★★★ &nbsp;96/100</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Genre</span>
+          <span class="meta-value">Action RPG</span>
+        </div>
+      </div>
+      <div class="spotlight-actions">
+        <div class="spotlight-price">
+          $49.99
+          <span class="spotlight-price-old">$59.99</span>
+        </div>
+        <button class="btn-primary" onclick="showToast('⚓ Elden Ring added to thy chest!')">⚔ &nbsp;Claim It</button>
+        <button class="btn-secondary">🗺 &nbsp;Details</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Countdown -->
+<div class="countdown-bar" style="margin-top:2.5rem; position:relative; z-index:1;">
+  <div class="countdown-inner">
+    <span class="countdown-label">🔥 &nbsp; Plunder Ends In</span>
+    <div class="countdown-timer">
+      <div class="time-block"><span class="time-num" id="cd-h">08</span><span class="time-unit">Hours</span></div>
+      <span class="time-sep">:</span>
+      <div class="time-block"><span class="time-num" id="cd-m">42</span><span class="time-unit">Mins</span></div>
+      <span class="time-sep">:</span>
+      <div class="time-block"><span class="time-num" id="cd-s">17</span><span class="time-unit">Secs</span></div>
+    </div>
+    <span class="countdown-label">Up to <span style="color:var(--gold-light);font-family:'Cinzel',serif;">60% OFF</span> &nbsp;🏴‍☠️</span>
+  </div>
+</div>
+
+<!-- Deals of the Day -->
+<section class="section">
+  <div class="section-header">
+    <div class="section-titles">
+      <span class="section-label">⚓ Limited Time</span>
+      <h2 class="section-title">Deals of the Day</h2>
+    </div>
+    <a href="index.html" class="section-link">View All Deals →</a>
+  </div>
+  <div class="deals-grid" id="deals-grid"></div>
+</section>
+
+<hr class="section-divider" />
+
+
+
+<hr class="section-divider" />
+
+<!-- Top Rated -->
+<section class="section">
+  <div class="section-header">
+    <div class="section-titles">
+      <span class="section-label">⚓ Legends of the Sea</span>
+      <h2 class="section-title">Top Rated</h2>
+    </div>
+    <a href="index.html" class="section-link">See Full Store →</a>
+  </div>
+  <div class="toprated-list" id="toprated-list"></div>
+</section>
+
+<!-- Newsletter -->
+<div class="newsletter">
+  <h2>Join the Crew</h2>
+  <p>Get the best deals and new loot delivered to thy inbox. No spam — only treasure.</p>
+  <div class="newsletter-form">
+    <input class="newsletter-input" type="email" placeholder="thy@email.com" />
+    <button class="btn-primary" onclick="showToast('⚓ Welcome aboard, sailor!')">⚓ &nbsp;Enlist</button>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-logo">Davy's Game Chest</div>
+  <p class="footer-tagline">"Fifteen games on a dead man's drive..."</p>
+  <ul class="footer-links">
+    <li><a href="#">About</a></li>
+    <li><a href="#">FAQ</a></li>
+    <li><a href="#">Refund Policy</a></li>
+    <li><a href="#">Contact</a></li>
+    <li><a href="#">Affiliate</a></li>
+  </ul>
+  <p class="footer-copy">© 2025 Davy's Game Chest. All rights reserved across the seven seas.</p>
+</footer>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+
+</body>
+</html>
